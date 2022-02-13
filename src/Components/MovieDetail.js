@@ -1,27 +1,29 @@
 import {
+    Card,
     Box,
+    CardContent,
+    CardMedia,
     Modal,
-    Button,
-    Typography
+    CircularProgress,
+    Typography,
+    Chip,
+    Container
 } from '@mui/material'
 
 import { useEffect, useState } from "react";
 import env from "react-dotenv";
 
-const style = {
+const boxStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
     p: 4,
 };
 
 function MovieDetail(props) {
     const [movie, setMovie] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
     const { togglerHandler } = props;
     const { isOpen } = props;
     const { id } = props;
@@ -31,6 +33,7 @@ function MovieDetail(props) {
             .then(res => res.json())
             .then(json => {
                 setMovie([json])
+                console.log(json)
             });
     };
 
@@ -38,7 +41,10 @@ function MovieDetail(props) {
         if (isOpen) {
             fetchData();
         }
-    }, [id, isOpen])
+        if (movie[0] != null) {
+            setIsLoading(false);
+        }
+    }, [id, isOpen, movie])
 
 
     return (
@@ -48,14 +54,28 @@ function MovieDetail(props) {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {movie[0].title}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                </Typography>
-            </Box>
+            {isLoading ? (<CircularProgress />) : (<Box sx={boxStyle}>
+                <Card sx={{ maxWidth: 345 }}>
+                    <CardMedia
+                        component="img"
+                        height="500"
+                        image={`${env.BASE_IMAGE_API}${movie[0].posterPath}`}
+                        alt="green iguana"
+                    />
+                    <CardContent>
+
+                        <Typography gutterBottom variant="h5" component="div">
+                            {movie[0].title}
+                        </Typography>
+                        <Container sx={{ pb: 2, display: 'flex', justifyContent: 'flex-end' }}>
+                            <Chip label={`${movie[0].voteAverage}/10`} color='info' />
+                        </Container>
+                        <Typography variant="body2" color="text.primery" align='justify'>
+                            {movie[0].overview}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Box>)}
 
         </Modal>
     );

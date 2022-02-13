@@ -1,4 +1,4 @@
-import { Grid, Pagination, Container, CircularProgress, Button } from '@mui/material'
+import { Grid, Pagination, Container, CircularProgress } from '@mui/material'
 import MovieItem from './MovieItem'
 import MovieDetail from './MovieDetail';
 import { Fragment, useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import env from "react-dotenv";
 
 
 let paginationContainerStyles = {
-    pt: 3, display: 'flex', justifyContent: 'center'
+    py: 3, display: 'flex', justifyContent: 'center'
 }
 
 
@@ -29,13 +29,13 @@ function Movies() {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [page])
 
     useEffect(() => {
         if (movies.length !== 0) {
             setIsLoading(false);
         }
-    }, [movies]);
+    }, [page, movies]);
 
     const handlePageChange = (e, page) => {
         setPage(page)

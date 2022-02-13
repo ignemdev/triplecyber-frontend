@@ -9,32 +9,33 @@ import {
 
 import env from "react-dotenv";
 
+const chipMargins = { mx: 1, my: 1 };
 
+const buttonStyles = {
+    boxShadow: 3,
+    borderRadiusTop: 0,
+    width: '100%',
+    flexDirection: 'column',
+    flexWrap: 'wrap'
+}
+
+const listItemStyles = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
+}
+
+const typographyStyles = {
+    wordBreak: 'break-word',
+    display: 'flex',
+    mx: 1,
+    mb: 1
+}
 
 function MovieItem(props) {
 
-    const chipMargins = { mx: 1, my: 1 };
-
-    const buttonStyles = {
-        boxShadow: 3,
-        borderRadiusTop: 0,
-        width: '100%',
-        flexDirection: 'column',
-        flexWrap: 'wrap'
-    }
-
-    const listItemStyles = {
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap'
-    }
-
-    const typographyStyles = {
-        wordBreak: 'break-word',
-        display: 'flex',
-        mx: 1,
-        mb: 1
-    }
+    const { movieDetailHandler } = props;
+    const { selectMovieHandler } = props;
 
     return (
         <Grid item xs={12} sm={6} md={3}>
@@ -44,7 +45,7 @@ function MovieItem(props) {
                 image={`${env.BASE_IMAGE_API}${props.backdropPath}`}
                 alt={props.title}
             />
-            <Button sx={{ ...buttonStyles }}>
+            <Button sx={{ ...buttonStyles }} onClick={() => { movieDetailHandler(); selectMovieHandler(props.id) }}>
                 <ListItem sx={{ ...listItemStyles }}>
                     <Chip clickable label={props.shortTitle} sx={{ ...chipMargins }} />
                     <Chip label={`${props.voteAverage}/10`} color='info' sx={{ ...chipMargins }} />

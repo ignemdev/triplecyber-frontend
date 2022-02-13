@@ -46,7 +46,7 @@ function MovieItem(props) {
             />
             <Button sx={{ ...buttonStyles }}>
                 <ListItem sx={{ ...listItemStyles }}>
-                    <Chip clickable label="short name" sx={{ ...chipMargins }} />
+                    <Chip clickable label={props.shortTitle} sx={{ ...chipMargins }} />
                     <Chip label={`${props.voteAverage}/10`} color='info' sx={{ ...chipMargins }} />
                 </ListItem>
                 <ListItem>

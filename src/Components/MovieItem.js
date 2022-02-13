@@ -7,9 +7,11 @@ import {
     CardMedia
 } from '@mui/material'
 
+import env from "react-dotenv";
 
 
-function MovieItem() {
+
+function MovieItem(props) {
 
     const chipMargins = { mx: 1, my: 1 };
 
@@ -39,17 +41,17 @@ function MovieItem() {
             <CardMedia
                 component="img"
                 height="140"
-                image="https://via.placeholder.com/140.jpg"
-                alt="green iguana"
+                image={`${env.BASE_IMAGE_API}${props.backdropPath}`}
+                alt={props.title}
             />
             <Button sx={{ ...buttonStyles }}>
                 <ListItem sx={{ ...listItemStyles }}>
                     <Chip clickable label="short name" sx={{ ...chipMargins }} />
-                    <Chip label="votos" color='info' sx={{ ...chipMargins }} />
+                    <Chip label={`${props.voteAverage}/10`} color='info' sx={{ ...chipMargins }} />
                 </ListItem>
                 <ListItem>
                     <Typography variant="h6" color="inherit" component="div" sx={{ ...typographyStyles }}>
-                        title
+                        {props.title}
                     </Typography>
                 </ListItem>
             </Button>

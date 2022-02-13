@@ -13,7 +13,7 @@ export function Navbar() {
   const applicantName = 'Ignacio Morel Pujols'
 
   return (
-    <AppBar position="relative">
+    <AppBar position="relative" sx={{ boxShadow: 0, border: 0 }}>
       <Toolbar variant="dense">
         <MovieIcon sx={{ mr: 2 }} />
         <Typography variant="h6" color="inherit" component="div">

@@ -1,8 +1,11 @@
-import React from 'react'
+import { Grid } from '@mui/material'
+import MovieItem from './MovieItem'
 
 function Movies() {
     return (
-        <div>MoviesList</div>
+        <Grid container spacing={2} padding={5}>
+            <MovieItem />
+        </Grid >
     )
 }
 

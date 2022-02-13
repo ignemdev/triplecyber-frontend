@@ -1,4 +1,4 @@
-import { Grid, Pagination, Container, LinearProgress } from '@mui/material'
+import { Grid, Pagination, Container, CircularProgress } from '@mui/material'
 import MovieItem from './MovieItem'
 import { Fragment, useEffect, useState } from "react";
 import env from "react-dotenv";
@@ -23,10 +23,10 @@ function Movies() {
     }, [])
 
     useEffect(() => {
-        console.log(isLoading)
         if (movies.length !== 0) {
             setIsLoading(false);
         }
+        console.log(movies);
     }, [movies]);
 
     const handlePageChange = (e, page) => {
@@ -39,8 +39,8 @@ function Movies() {
             <Container sx={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
                 <Pagination count={totalPages} page={page} onChange={handlePageChange} />
             </Container>
-            <Grid container spacing={2} padding={5}>
-                {isLoading ? (<LinearProgress />) : (movies.map(m => <MovieItem
+            <Grid container spacing={2} padding={5} sx={{ justifyContent: 'center' }}>
+                {isLoading ? (<CircularProgress />) : (movies.map(m => <MovieItem
                     key={m.id}
                     title={m.title}
                     voteAverage={m.voteAverage}
